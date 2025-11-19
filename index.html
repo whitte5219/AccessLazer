@@ -23,6 +23,7 @@
             --warning: #ffc107;
             --danger: #f44336;
             --quantum: #00ffcc;
+            --white-hole: #ffffff;
         }
         
         * {
@@ -517,6 +518,7 @@
             position: absolute;
             border-radius: 50%;
             transition: all 0.5s ease;
+            cursor: pointer;
         }
         
         .black-hole {
@@ -527,6 +529,18 @@
             transition: all 0.5s ease;
             width: 30px;
             height: 30px;
+            cursor: pointer;
+        }
+        
+        .white-hole {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, #ffffff 0%, #dddddd 70%);
+            box-shadow: 0 0 30px #ffffff;
+            transition: all 0.5s ease;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
         }
         
         .evolution-panel {
@@ -615,8 +629,20 @@
             color: #000;
         }
         
-        /* Star Storage Styles */
-        .star-storage {
+        /* Storage Styles */
+        .storage-container {
+            margin-bottom: 20px;
+        }
+        
+        .storage-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--text-secondary);
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 5px;
+        }
+        
+        .star-storage, .planet-storage {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 15px;
@@ -653,13 +679,13 @@
             cursor: pointer;
         }
         
-        .star-in-slot {
+        .star-in-slot, .planet-in-slot {
             text-align: center;
             width: 100%;
             padding: 10px;
         }
         
-        .star-slot-icon {
+        .star-slot-icon, .planet-slot-icon {
             width: 50px;
             height: 50px;
             border-radius: 50%;
@@ -671,17 +697,17 @@
             box-shadow: 0 0 10px currentColor;
         }
         
-        .star-slot-name {
+        .star-slot-name, .planet-slot-name {
             font-size: 0.9rem;
             margin-bottom: 5px;
         }
         
-        .star-slot-level {
+        .star-slot-level, .planet-slot-level {
             font-size: 0.8rem;
             opacity: 0.7;
         }
         
-        .star-details {
+        .star-details, .planet-details {
             background: rgba(255, 255, 255, 0.05);
             border-radius: 10px;
             padding: 20px;
@@ -689,13 +715,13 @@
             animation: fadeIn 0.5s ease;
         }
         
-        .star-details-header {
+        .star-details-header, .planet-details-header {
             display: flex;
             align-items: center;
             margin-bottom: 20px;
         }
         
-        .star-details-icon {
+        .star-details-icon, .planet-details-icon {
             width: 80px;
             height: 80px;
             border-radius: 50%;
@@ -707,51 +733,51 @@
             box-shadow: 0 0 20px currentColor;
         }
         
-        .star-details-info {
+        .star-details-info, .planet-details-info {
             flex: 1;
         }
         
-        .star-details-name {
+        .star-details-name, .planet-details-name {
             font-size: 1.8rem;
             margin-bottom: 5px;
         }
         
-        .star-details-type {
+        .star-details-type, .planet-details-type {
             font-size: 1rem;
             opacity: 0.8;
             margin-bottom: 10px;
         }
         
-        .star-details-stats {
+        .star-details-stats, .planet-details-stats {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 15px;
             margin-bottom: 20px;
         }
         
-        .star-stat {
+        .star-stat, .planet-stat {
             background: rgba(255, 255, 255, 0.05);
             border-radius: 8px;
             padding: 15px;
             text-align: center;
         }
         
-        .star-stat-name {
+        .star-stat-name, .planet-stat-name {
             font-size: 0.9rem;
             margin-bottom: 5px;
             color: var(--text-secondary);
         }
         
-        .star-stat-value {
+        .star-stat-value, .planet-stat-value {
             font-size: 1.2rem;
             font-weight: bold;
         }
         
-        .star-upgrades {
+        .star-upgrades, .planet-upgrades {
             margin-top: 20px;
         }
         
-        .star-upgrade {
+        .star-upgrade, .planet-upgrade {
             background: rgba(255, 255, 255, 0.05);
             border-radius: 8px;
             padding: 15px;
@@ -762,26 +788,26 @@
             transition: all 0.3s ease;
         }
         
-        .star-upgrade:hover {
+        .star-upgrade:hover, .planet-upgrade:hover {
             background: rgba(255, 255, 255, 0.08);
             transform: translateX(5px);
         }
         
-        .star-upgrade-info {
+        .star-upgrade-info, .planet-upgrade-info {
             flex: 1;
         }
         
-        .star-upgrade-name {
+        .star-upgrade-name, .planet-upgrade-name {
             font-size: 1.1rem;
             margin-bottom: 5px;
         }
         
-        .star-upgrade-description {
+        .star-upgrade-description, .planet-upgrade-description {
             font-size: 0.9rem;
             opacity: 0.8;
         }
         
-        .star-upgrade-cost {
+        .star-upgrade-cost, .planet-upgrade-cost {
             display: flex;
             flex-direction: column;
             align-items: flex-end;
@@ -889,6 +915,15 @@
             animation: black-hole-pulse 3s infinite;
         }
         
+        @keyframes white-hole-pulse {
+            0%, 100% { box-shadow: 0 0 30px #ffffff; }
+            50% { box-shadow: 0 0 50px #ffffff; }
+        }
+        
+        .white-hole-pulse {
+            animation: white-hole-pulse 3s infinite;
+        }
+        
         @keyframes glow {
             0%, 100% { box-shadow: 0 0 10px currentColor; }
             50% { box-shadow: 0 0 20px currentColor; }
@@ -921,7 +956,7 @@
                 font-size: 2.2rem;
             }
             
-            .star-storage {
+            .star-storage, .planet-storage {
                 grid-template-columns: repeat(2, 1fr);
             }
             
@@ -945,7 +980,7 @@
             </div>
             <div class="quick-action" data-tab="storage">
                 <i class="fas fa-box"></i>
-                <span>Star Storage</span>
+                <span>Storage</span>
             </div>
             <div class="quick-action" data-tab="planets">
                 <i class="fas fa-globe"></i>
@@ -1002,7 +1037,7 @@
                         <i class="fas fa-star"></i> Stars
                     </div>
                     <div class="tab" data-tab="storage">
-                        <i class="fas fa-box"></i> Star Storage
+                        <i class="fas fa-box"></i> Storage
                     </div>
                     <div class="tab" data-tab="planets">
                         <i class="fas fa-globe"></i> Planets
@@ -1134,38 +1169,76 @@
                     </div>
                     
                     <div class="tab-pane" id="storage">
-                        <h3>Star Storage</h3>
-                        <div class="stat">
-                            <span>Storage Slots:</span>
-                            <span id="storage-slots">0 / 5</span>
-                        </div>
-                        
-                        <div class="star-storage" id="star-storage">
-                            <!-- Star slots will be populated by JavaScript -->
-                        </div>
-                        
-                        <div class="storage-upgrade">
-                            <div class="storage-upgrade-info">
-                                <div class="storage-upgrade-name">Expand Storage</div>
-                                <div class="storage-upgrade-description">Increase your star storage capacity by 5 slots</div>
+                        <div class="storage-container">
+                            <h3 class="storage-title">Star Storage</h3>
+                            <div class="stat">
+                                <span>Star Storage Slots:</span>
+                                <span id="star-storage-slots">0 / 5</span>
                             </div>
-                            <div class="celestial-cost">
-                                <div class="cost-item">
-                                    <span>Energy:</span>
-                                    <span>1,000</span>
-                                </div>
-                                <div class="cost-item">
-                                    <span>Stardust:</span>
-                                    <span>500</span>
-                                </div>
+                            
+                            <div class="star-storage" id="star-storage">
+                                <!-- Star slots will be populated by JavaScript -->
                             </div>
-                            <button class="btn" id="expand-storage-btn">
-                                <i class="fas fa-expand-arrows-alt"></i> Expand
-                            </button>
+                            
+                            <div class="storage-upgrade">
+                                <div class="storage-upgrade-info">
+                                    <div class="storage-upgrade-name">Expand Star Storage</div>
+                                    <div class="storage-upgrade-description">Increase your star storage capacity by 5 slots</div>
+                                </div>
+                                <div class="celestial-cost">
+                                    <div class="cost-item">
+                                        <span>Energy:</span>
+                                        <span>1,000</span>
+                                    </div>
+                                    <div class="cost-item">
+                                        <span>Stardust:</span>
+                                        <span>500</span>
+                                    </div>
+                                </div>
+                                <button class="btn" id="expand-star-storage-btn">
+                                    <i class="fas fa-expand-arrows-alt"></i> Expand
+                                </button>
+                            </div>
+                            
+                            <div class="star-details" id="star-details" style="display: none;">
+                                <!-- Star details will be populated when a star is selected -->
+                            </div>
                         </div>
                         
-                        <div class="star-details" id="star-details" style="display: none;">
-                            <!-- Star details will be populated when a star is selected -->
+                        <div class="storage-container">
+                            <h3 class="storage-title">Planet Storage</h3>
+                            <div class="stat">
+                                <span>Planet Storage Slots:</span>
+                                <span id="planet-storage-slots">0 / 5</span>
+                            </div>
+                            
+                            <div class="planet-storage" id="planet-storage">
+                                <!-- Planet slots will be populated by JavaScript -->
+                            </div>
+                            
+                            <div class="storage-upgrade">
+                                <div class="storage-upgrade-info">
+                                    <div class="storage-upgrade-name">Expand Planet Storage</div>
+                                    <div class="storage-upgrade-description">Increase your planet storage capacity by 5 slots</div>
+                                </div>
+                                <div class="celestial-cost">
+                                    <div class="cost-item">
+                                        <span>Energy:</span>
+                                        <span>1,000</span>
+                                    </div>
+                                    <div class="cost-item">
+                                        <span>Stardust:</span>
+                                        <span>500</span>
+                                    </div>
+                                </div>
+                                <button class="btn" id="expand-planet-storage-btn">
+                                    <i class="fas fa-expand-arrows-alt"></i> Expand
+                                </button>
+                            </div>
+                            
+                            <div class="planet-details" id="planet-details" style="display: none;">
+                                <!-- Planet details will be populated when a planet is selected -->
+                            </div>
                         </div>
                     </div>
                     
@@ -1314,6 +1387,35 @@
                             
                             <div class="celestial-item">
                                 <div class="celestial-header">
+                                    <div class="celestial-icon white-hole-pulse" style="background: var(--white-hole); color: black;">
+                                        <i class="fas fa-circle"></i>
+                                    </div>
+                                    <div class="celestial-name">White Hole</div>
+                                </div>
+                                <div class="celestial-description">
+                                    A theoretical portal and an unknown source sending out limitless energy and mass. Generates hydrogen and energy.
+                                </div>
+                                <div class="celestial-cost">
+                                    <div class="cost-item">
+                                        <span>Energy:</span>
+                                        <span>75,000</span>
+                                    </div>
+                                    <div class="cost-item">
+                                        <span>Dark Matter:</span>
+                                        <span>4,000</span>
+                                    </div>
+                                    <div class="cost-item">
+                                        <span>Knowledge:</span>
+                                        <span>15,000</span>
+                                    </div>
+                                </div>
+                                <button class="btn create-btn" data-celestial="whiteHole">
+                                    <i class="fas fa-plus"></i> Create
+                                </button>
+                            </div>
+                            
+                            <div class="celestial-item">
+                                <div class="celestial-header">
                                     <div class="celestial-icon" style="background: var(--nebula-pink); color: white;">
                                         <i class="fas fa-cloud"></i>
                                     </div>
@@ -1325,7 +1427,7 @@
                                 <div class="celestial-cost">
                                     <div class="cost-item">
                                         <span>Hydrogen:</span>
-                                        <span>10,000</span>
+                                        <span>20,000</span>
                                     </div>
                                     <div class="cost-item">
                                         <span>Stardust:</span>
@@ -1414,317 +1516,17 @@
                         </div>
                     </div>
                     
+                    <!-- Remaining tabs (evolution, upgrades, achievements) would go here -->
                     <div class="tab-pane" id="evolution">
-                        <h3>Celestial Evolution</h3>
-                        <p>Evolve your celestial bodies into more advanced forms with enhanced capabilities.</p>
-                        
-                        <div class="evolution-panel">
-                            <h4>Star Evolution Paths</h4>
-                            <div class="evolution-options">
-                                <div class="evolution-option" data-evolution="redDwarf_to_yellow">
-                                    <div class="celestial-name">Red Dwarf → Yellow Star</div>
-                                    <div class="celestial-cost">
-                                        <div class="cost-item">
-                                            <span>Energy:</span>
-                                            <span>5,000</span>
-                                        </div>
-                                        <div class="cost-item">
-                                            <span>Hydrogen:</span>
-                                            <span>2,000</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="evolution-option" data-evolution="yellow_to_blueGiant">
-                                    <div class="celestial-name">Yellow Star → Blue Giant</div>
-                                    <div class="celestial-cost">
-                                        <div class="cost-item">
-                                            <span>Energy:</span>
-                                            <span>15,000</span>
-                                        </div>
-                                        <div class="cost-item">
-                                            <span>Helium:</span>
-                                            <span>5,000</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="evolution-option" data-evolution="blueGiant_to_neutron">
-                                    <div class="celestial-name">Blue Giant → Neutron Star</div>
-                                    <div class="celestial-cost">
-                                        <div class="cost-item">
-                                            <span>Energy:</span>
-                                            <span>50,000</span>
-                                        </div>
-                                        <div class="cost-item">
-                                            <span>Dark Matter:</span>
-                                            <span>2,000</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="evolution-option" data-evolution="neutron_to_blackHole">
-                                    <div class="celestial-name">Neutron Star → Black Hole</div>
-                                    <div class="celestial-cost">
-                                        <div class="cost-item">
-                                            <span>Quantum Foam:</span>
-                                            <span>100</span>
-                                        </div>
-                                        <div class="cost-item">
-                                            <span>Dark Matter:</span>
-                                            <span>10,000</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="evolution-panel">
-                            <h4>Planet Evolution Paths</h4>
-                            <div class="evolution-options">
-                                <div class="evolution-option" data-evolution="rocky_to_habitable">
-                                    <div class="celestial-name">Rocky Planet → Habitable Planet</div>
-                                    <div class="celestial-cost">
-                                        <div class="cost-item">
-                                            <span>Water:</span>
-                                            <span>1,000</span>
-                                        </div>
-                                        <div class="cost-item">
-                                            <span>Energy:</span>
-                                            <span>5,000</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="evolution-option" data-evolution="habitable_to_ringed">
-                                    <div class="celestial-name">Habitable Planet → Ringed Planet</div>
-                                    <div class="celestial-cost">
-                                        <div class="cost-item">
-                                            <span>Stardust:</span>
-                                            <span>5,000</span>
-                                        </div>
-                                        <div class="cost-item">
-                                            <span>Knowledge:</span>
-                                            <span>1,000</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <p>Evolution system would be implemented here</p>
                     </div>
                     
                     <div class="tab-pane" id="upgrades">
-                        <div class="upgrades-grid">
-                            <div class="upgrade">
-                                <div class="upgrade-header">
-                                    <div class="upgrade-icon">
-                                        <i class="fas fa-atom"></i>
-                                    </div>
-                                    <div class="upgrade-name">Fusion Efficiency</div>
-                                </div>
-                                <div class="upgrade-description">
-                                    Increase hydrogen to energy conversion rate by 25% for all stars.
-                                </div>
-                                <div class="celestial-cost">
-                                    <div class="cost-item">
-                                        <span>Knowledge:</span>
-                                        <span>100</span>
-                                    </div>
-                                </div>
-                                <button class="btn upgrade-btn" data-upgrade="fusion">
-                                    <i class="fas fa-wrench"></i> Research
-                                </button>
-                            </div>
-                            
-                            <div class="upgrade">
-                                <div class="upgrade-header">
-                                    <div class="upgrade-icon">
-                                        <i class="fas fa-solar-panel"></i>
-                                    </div>
-                                    <div class="upgrade-name">Stellar Harvesting</div>
-                                </div>
-                                <div class="upgrade-description">
-                                    Unlocks the ability to collect energy from stars more efficiently.
-                                </div>
-                                <div class="celestial-cost">
-                                    <div class="cost-item">
-                                        <span>Knowledge:</span>
-                                        <span>150</span>
-                                    </div>
-                                    <div class="cost-item">
-                                        <span>Dark Matter:</span>
-                                        <span>50</span>
-                                    </div>
-                                </div>
-                                <button class="btn upgrade-btn" data-upgrade="harvesting">
-                                    <i class="fas fa-wrench"></i> Research
-                                </button>
-                            </div>
-                            
-                            <div class="upgrade">
-                                <div class="upgrade-header">
-                                    <div class="upgrade-icon">
-                                        <i class="fas fa-expand-arrows-alt"></i>
-                                    </div>
-                                    <div class="upgrade-name">Gravity Manipulation</div>
-                                </div>
-                                <div class="upgrade-description">
-                                    Reduces the resource cost of creating planets by 20%.
-                                </div>
-                                <div class="celestial-cost">
-                                    <div class="cost-item">
-                                        <span>Knowledge:</span>
-                                        <span>200</span>
-                                    </div>
-                                    <div class="cost-item">
-                                        <span>Dark Matter:</span>
-                                        <span>100</span>
-                                    </div>
-                                </div>
-                                <button class="btn upgrade-btn" data-upgrade="gravity">
-                                    <i class="fas fa-wrench"></i> Research
-                                </button>
-                            </div>
-                            
-                            <div class="upgrade">
-                                <div class="upgrade-header">
-                                    <div class="upgrade-icon">
-                                        <i class="fas fa-recycle"></i>
-                                    </div>
-                                    <div class="upgrade-name">Stellar Recycling</div>
-                                </div>
-                                <div class="upgrade-description">
-                                    Gain resources when stars reach the end of their lifecycles.
-                                </div>
-                                <div class="celestial-cost">
-                                    <div class="cost-item">
-                                        <span>Knowledge:</span>
-                                        <span>300</span>
-                                    </div>
-                                    <div class="cost-item">
-                                        <span>Dark Matter:</span>
-                                        <span>150</span>
-                                    </div>
-                                </div>
-                                <button class="btn upgrade-btn" data-upgrade="recycling">
-                                    <i class="fas fa-wrench"></i> Research
-                                </button>
-                            </div>
-                            
-                            <div class="upgrade">
-                                <div class="upgrade-header">
-                                    <div class="upgrade-icon">
-                                        <i class="fas fa-tachometer-alt"></i>
-                                    </div>
-                                    <div class="upgrade-name">Quantum Efficiency</div>
-                                </div>
-                                <div class="upgrade-description">
-                                    Increases production of all resources by 15%.
-                                </div>
-                                <div class="celestial-cost">
-                                    <div class="cost-item">
-                                        <span>Quantum Foam:</span>
-                                        <span>200</span>
-                                    </div>
-                                    <div class="cost-item">
-                                        <span>Knowledge:</span>
-                                        <span>1,000</span>
-                                    </div>
-                                </div>
-                                <button class="btn upgrade-btn" data-upgrade="quantum">
-                                    <i class="fas fa-wrench"></i> Research
-                                </button>
-                            </div>
-                            
-                            <div class="upgrade">
-                                <div class="upgrade-header">
-                                    <div class="upgrade-icon">
-                                        <i class="fas fa-infinity"></i>
-                                    </div>
-                                    <div class="upgrade-name">Multiversal Theory</div>
-                                </div>
-                                <div class="upgrade-description">
-                                    Unlocks the ability to create wormholes and access parallel universes.
-                                </div>
-                                <div class="celestial-cost">
-                                    <div class="cost-item">
-                                        <span>Quantum Foam:</span>
-                                        <span>500</span>
-                                    </div>
-                                    <div class="cost-item">
-                                        <span>Knowledge:</span>
-                                        <span>5,000</span>
-                                    </div>
-                                </div>
-                                <button class="btn upgrade-btn" data-upgrade="multiverse">
-                                    <i class="fas fa-wrench"></i> Research
-                                </button>
-                            </div>
-                        </div>
+                        <p>Upgrades system would be implemented here</p>
                     </div>
                     
                     <div class="tab-pane" id="achievements">
-                        <div class="achievements">
-                            <div class="achievement" id="achievement-1">
-                                <div class="achievement-icon">
-                                    <i class="fas fa-star"></i>
-                                </div>
-                                <div class="achievement-name">First Light</div>
-                                <div class="achievement-desc">Create your first star</div>
-                            </div>
-                            
-                            <div class="achievement" id="achievement-2">
-                                <div class="achievement-icon">
-                                    <i class="fas fa-sun"></i>
-                                </div>
-                                <div class="achievement-name">Stellar Nursery</div>
-                                <div class="achievement-desc">Create 10 stars</div>
-                            </div>
-                            
-                            <div class="achievement" id="achievement-3">
-                                <div class="achievement-icon">
-                                    <i class="fas fa-globe-americas"></i>
-                                </div>
-                                <div class="achievement-name">Planet Creator</div>
-                                <div class="achievement-desc">Create 5 planets</div>
-                            </div>
-                            
-                            <div class="achievement" id="achievement-4">
-                                <div class="achievement-icon">
-                                    <i class="fas fa-galaxy"></i>
-                                </div>
-                                <div class="achievement-name">Solar System</div>
-                                <div class="achievement-desc">Create a star with 3 orbiting planets</div>
-                            </div>
-                            
-                            <div class="achievement" id="achievement-5">
-                                <div class="achievement-icon">
-                                    <i class="fas fa-infinity"></i>
-                                </div>
-                                <div class="achievement-name">Cosmic Architect</div>
-                                <div class="achievement-desc">Create one of each celestial body</div>
-                            </div>
-                            
-                            <div class="achievement" id="achievement-6">
-                                <div class="achievement-icon">
-                                    <i class="fas fa-black-hole"></i>
-                                </div>
-                                <div class="achievement-name">Dark Master</div>
-                                <div class="achievement-desc">Accumulate 1,000 dark matter</div>
-                            </div>
-                            
-                            <div class="achievement" id="achievement-7">
-                                <div class="achievement-icon">
-                                    <i class="fas fa-atom"></i>
-                                </div>
-                                <div class="achievement-name">Quantum Pioneer</div>
-                                <div class="achievement-desc">Create your first black hole</div>
-                            </div>
-                            
-                            <div class="achievement" id="achievement-8">
-                                <div class="achievement-icon">
-                                    <i class="fas fa-infinity"></i>
-                                </div>
-                                <div class="achievement-name">Multiversal Traveler</div>
-                                <div class="achievement-desc">Create a wormhole</div>
-                            </div>
-                        </div>
+                        <p>Achievements system would be implemented here</p>
                     </div>
                 </div>
             </div>
@@ -1800,19 +1602,17 @@
                 water: 0
             },
             storage: {
-                slots: 5,
-                used: 0,
-                stars: [] // Array of star objects
+                starSlots: 5,
+                starUsed: 0,
+                stars: [], // Array of star objects
+                planetSlots: 5,
+                planetUsed: 0,
+                planets: [] // Array of planet objects
             },
             celestialBodies: {
-                planets: {
-                    rockyPlanet: { count: 0, production: { stardust: 1 } },
-                    habitablePlanet: { count: 0, production: { knowledge: 0.5 } },
-                    gasGiant: { count: 0, production: { helium: 1 } },
-                    ringedPlanet: { count: 0, production: { stardust: 2, knowledge: 0.2 } }
-                },
                 advanced: {
                     blackHole: { count: 0, production: { quantumFoam: 1 } },
+                    whiteHole: { count: 0, production: { hydrogen: 20, energy: 50 } },
                     nebula: { count: 0, production: { hydrogen: 10, stardust: 5 } },
                     quasar: { count: 0, production: { energy: 200, knowledge: 5 } },
                     wormhole: { count: 0, production: { quantumFoam: 5, knowledge: 10 } }
@@ -1855,6 +1655,7 @@
                 water: 0
             },
             selectedStar: null,
+            selectedPlanet: null,
             // Galaxy map data
             galaxy: {
                 stars: [],
@@ -2019,48 +1820,136 @@
             }
         };
 
-        // Planet and advanced celestial data
-        const celestialData = {
+        // Planet data
+        const planetData = {
             rockyPlanet: {
                 name: "Rocky Planet",
                 cost: { stardust: 200, energy: 100 },
-                production: { stardust: 1 },
+                baseProduction: { stardust: 1 },
+                baseStats: {
+                    type: "Terrestrial",
+                    gravity: "1G",
+                    diameter: "1 Earth",
+                    atmosphere: "Thin"
+                },
                 display: {
                     background: "radial-gradient(circle at 30% 30%, #795548, #8d6e63, #a1887f)",
                     shadow: "#8d6e63"
                 },
-                stats: "Type: Terrestrial | Gravity: 1G"
+                upgrades: [
+                    {
+                        id: "rockyPlanet_1",
+                        name: "Tectonic Activity",
+                        description: "Increases stardust production by 50%",
+                        cost: { energy: 500 },
+                        effect: { stardustMultiplier: 1.5 }
+                    },
+                    {
+                        id: "rockyPlanet_2",
+                        name: "Core Enhancement",
+                        description: "Generates additional energy from planetary core",
+                        cost: { stardust: 1000 },
+                        effect: { addProduction: { energy: 2 } }
+                    }
+                ]
             },
             habitablePlanet: {
                 name: "Habitable Planet",
                 cost: { stardust: 500, energy: 200 },
-                production: { knowledge: 0.5 },
+                baseProduction: { knowledge: 0.5 },
+                baseStats: {
+                    type: "Terrestrial",
+                    gravity: "1G",
+                    diameter: "1 Earth",
+                    atmosphere: "Breathable"
+                },
                 display: {
                     background: "radial-gradient(circle at 30% 30%, #4caf50, #388e3c, #2e7d32)",
                     shadow: "#388e3c"
                 },
-                stats: "Atmosphere: Breathable | Life: Present"
+                upgrades: [
+                    {
+                        id: "habitablePlanet_1",
+                        name: "Biodiversity Expansion",
+                        description: "Increases knowledge production by 50%",
+                        cost: { knowledge: 200 },
+                        effect: { knowledgeMultiplier: 1.5 }
+                    },
+                    {
+                        id: "habitablePlanet_2",
+                        name: "Advanced Civilization",
+                        description: "Unlocks additional resource production",
+                        cost: { energy: 1000, knowledge: 500 },
+                        effect: { addProduction: { stardust: 1 } }
+                    }
+                ]
             },
             gasGiant: {
                 name: "Gas Giant",
                 cost: { hydrogen: 1000, helium: 500 },
-                production: { helium: 1 },
+                baseProduction: { helium: 1 },
+                baseStats: {
+                    type: "Jovian",
+                    gravity: "2.5G",
+                    diameter: "11 Earths",
+                    atmosphere: "Hydrogen/Helium"
+                },
                 display: {
                     background: "radial-gradient(circle at 30% 30%, #2196f3, #1976d2, #0d47a1)",
                     shadow: "#1976d2"
                 },
-                stats: "Type: Jovian | Diameter: 11 Earths"
+                upgrades: [
+                    {
+                        id: "gasGiant_1",
+                        name: "Atmospheric Compression",
+                        description: "Increases helium production by 50%",
+                        cost: { energy: 1500 },
+                        effect: { heliumMultiplier: 1.5 }
+                    },
+                    {
+                        id: "gasGiant_2",
+                        name: "Gravitational Harvesting",
+                        description: "Generates additional hydrogen",
+                        cost: { helium: 1000 },
+                        effect: { addProduction: { hydrogen: 5 } }
+                    }
+                ]
             },
             ringedPlanet: {
                 name: "Ringed Planet",
                 cost: { stardust: 800, energy: 500, knowledge: 50 },
-                production: { stardust: 2, knowledge: 0.2 },
+                baseProduction: { stardust: 2, knowledge: 0.2 },
+                baseStats: {
+                    type: "Ice Giant",
+                    gravity: "1.1G",
+                    diameter: "4 Earths",
+                    rings: "Ice & Rock"
+                },
                 display: {
                     background: "radial-gradient(circle at 30% 30%, #9c27b0, #7b1fa2, #6a1b9a)",
                     shadow: "#7b1fa2"
                 },
-                stats: "Rings: Ice & Rock | Moons: 62"
-            },
+                upgrades: [
+                    {
+                        id: "ringedPlanet_1",
+                        name: "Ring System Enhancement",
+                        description: "Increases stardust production by 50%",
+                        cost: { stardust: 2000 },
+                        effect: { stardustMultiplier: 1.5 }
+                    },
+                    {
+                        id: "ringedPlanet_2",
+                        name: "Orbital Research Station",
+                        description: "Increases knowledge production by 50%",
+                        cost: { knowledge: 500, energy: 2000 },
+                        effect: { knowledgeMultiplier: 1.5 }
+                    }
+                ]
+            }
+        };
+
+        // Advanced celestial data
+        const advancedData = {
             blackHole: {
                 name: "Black Hole",
                 cost: { energy: 50000, darkMatter: 5000, knowledge: 1000 },
@@ -2071,9 +1960,19 @@
                 },
                 stats: "Event Horizon: 30km | Singularity: Infinite Density"
             },
+            whiteHole: {
+                name: "White Hole",
+                cost: { energy: 75000, darkMatter: 4000, knowledge: 15000 },
+                production: { hydrogen: 20, energy: 50 },
+                display: {
+                    background: "radial-gradient(circle at 30% 30%, #ffffff, #dddddd, #bbbbbb)",
+                    shadow: "#ffffff"
+                },
+                stats: "Theoretical Portal | Limitless Energy Source"
+            },
             nebula: {
                 name: "Nebula",
-                cost: { hydrogen: 10000, stardust: 5000, energy: 2000 },
+                cost: { hydrogen: 20000, stardust: 5000, energy: 2000 },
                 production: { hydrogen: 10, stardust: 5 },
                 display: {
                     background: "radial-gradient(circle at 30% 30%, #9c27b0, #e91e63, #ff9800)",
@@ -2103,74 +2002,6 @@
             }
         };
 
-        // Evolution data
-        const evolutionData = {
-            redDwarf_to_yellow: {
-                from: "redDwarf",
-                to: "yellowStar",
-                cost: { energy: 5000, hydrogen: 2000 }
-            },
-            yellow_to_blueGiant: {
-                from: "yellowStar",
-                to: "blueGiant",
-                cost: { energy: 15000, helium: 5000 }
-            },
-            blueGiant_to_neutron: {
-                from: "blueGiant",
-                to: "neutronStar",
-                cost: { energy: 50000, darkMatter: 2000 }
-            },
-            neutron_to_blackHole: {
-                from: "neutronStar",
-                to: "blackHole",
-                cost: { quantumFoam: 100, darkMatter: 10000 }
-            },
-            rocky_to_habitable: {
-                from: "rockyPlanet",
-                to: "habitablePlanet",
-                cost: { water: 1000, energy: 5000 }
-            },
-            habitable_to_ringed: {
-                from: "habitablePlanet",
-                to: "ringedPlanet",
-                cost: { stardust: 5000, knowledge: 1000 }
-            }
-        };
-
-        // Upgrade data
-        const upgradeData = {
-            fusion: {
-                name: "Fusion Efficiency",
-                cost: { knowledge: 100 },
-                effect: "energyProduction"
-            },
-            harvesting: {
-                name: "Stellar Harvesting",
-                cost: { knowledge: 150, darkMatter: 50 },
-                effect: "energyMultiplier"
-            },
-            gravity: {
-                name: "Gravity Manipulation",
-                cost: { knowledge: 200, darkMatter: 100 },
-                effect: "planetCostReduction"
-            },
-            recycling: {
-                name: "Stellar Recycling",
-                cost: { knowledge: 300, darkMatter: 150 },
-                effect: "starEndOfLife"
-            },
-            quantum: {
-                name: "Quantum Efficiency",
-                cost: { quantumFoam: 200, knowledge: 1000 },
-                effect: "globalProductionBoost"
-            },
-            multiverse: {
-                name: "Multiversal Theory",
-                cost: { quantumFoam: 500, knowledge: 5000 },
-                effect: "unlockWormholes"
-            }
-        };
-
         // Performance optimization variables
         let lastUpdateTime = 0;
         const UPDATE_INTERVAL = 1000; // Update resources once per second
@@ -2190,8 +2021,9 @@
             // Update UI
             updateUI();
             
-            // Render star storage
+            // Render storage
             renderStarStorage();
+            renderPlanetStorage();
             
             // Add initial event
             addEvent("Welcome to the Star Forge! Begin by creating your first star.");
@@ -2222,33 +2054,17 @@
                     const celestial = this.getAttribute('data-celestial');
                     if (celestial in starData) {
                         createStar(celestial);
+                    } else if (celestial in planetData) {
+                        createPlanet(celestial);
                     } else {
-                        createCelestialBody(celestial);
+                        createAdvanced(celestial);
                     }
                 });
             });
             
-            // Expand storage button
-            document.getElementById('expand-storage-btn').addEventListener('click', expandStorage);
-            
-            // Upgrade buttons
-            document.querySelectorAll('.upgrade-btn').forEach(button => {
-                button.addEventListener('click', function() {
-                    const upgrade = this.getAttribute('data-upgrade');
-                    researchUpgrade(upgrade);
-                });
-            });
-            
-            // Evolution options
-            document.addEventListener('click', function(e) {
-                if (e.target.closest('.evolution-option')) {
-                    const evolutionOption = e.target.closest('.evolution-option');
-                    if (!evolutionOption.classList.contains('disabled')) {
-                        const evolution = evolutionOption.getAttribute('data-evolution');
-                        evolveCelestial(evolution);
-                    }
-                }
-            });
+            // Expand storage buttons
+            document.getElementById('expand-star-storage-btn').addEventListener('click', () => expandStorage('star'));
+            document.getElementById('expand-planet-storage-btn').addEventListener('click', () => expandStorage('planet'));
             
             // Save game when leaving
             window.addEventListener('beforeunload', saveGame);
@@ -2268,7 +2084,7 @@
                 if (e.key === ' ' && !e.target.matches('input, textarea')) {
                     e.preventDefault();
                     const activeTab = document.querySelector('.tab.active').getAttribute('data-tab');
-                    if (activeTab === 'stars') {
+                    if (activeTab === 'stars' || activeTab === 'planets' || activeTab === 'advanced') {
                         const firstAvailable = document.querySelector('.create-btn:not(:disabled)');
                         if (firstAvailable) firstAvailable.click();
                     }
@@ -2291,6 +2107,7 @@
                 // Special handling for specific tabs
                 if (tabId === 'storage') {
                     renderStarStorage();
+                    renderPlanetStorage();
                 } else if (tabId === 'galaxy') {
                     renderGalaxyMap();
                 }
@@ -2331,8 +2148,8 @@
         // Create a star
         function createStar(starType) {
             // Check if we have storage space
-            if (gameState.storage.used >= gameState.storage.slots) {
-                showNotification("Not enough storage space! Expand your storage or remove stars.", 'warning');
+            if (gameState.storage.starUsed >= gameState.storage.starSlots) {
+                showNotification("Not enough star storage space! Expand your storage or remove stars.", 'warning');
                 return;
             }
             
@@ -2370,13 +2187,16 @@
             
             // Add to storage
             gameState.storage.stars.push(newStar);
-            gameState.storage.used++;
+            gameState.storage.starUsed++;
             gameState.stats.stars++;
             
             // Update production rates
             for (const resource in newStar.production) {
                 gameState.productionRates[resource] += newStar.production[resource];
             }
+            
+            // Add to galaxy
+            addToGalaxy(starType, 'star', newStar.id);
             
             // Add event
             addEvent(`Created a new ${star.name}.`);
@@ -2392,15 +2212,82 @@
             saveGame();
         }
 
-        // Create a celestial body (planet or advanced)
-        function createCelestialBody(celestialId) {
-            const celestial = celestialData[celestialId];
-            const cost = celestial.cost;
+        // Create a planet
+        function createPlanet(planetType) {
+            // Check if we have storage space
+            if (gameState.storage.planetUsed >= gameState.storage.planetSlots) {
+                showNotification("Not enough planet storage space! Expand your storage or remove planets.", 'warning');
+                return;
+            }
+            
+            const planet = planetData[planetType];
+            
+            // Check if we have enough resources
+            let canAfford = true;
+            for (const resource in planet.cost) {
+                if (gameState.resources[resource] < planet.cost[resource]) {
+                    canAfford = false;
+                    break;
+                }
+            }
+            
+            if (!canAfford) {
+                showNotification(`Not enough resources to create ${planet.name}`, 'warning');
+                return;
+            }
+            
+            // Deduct costs
+            for (const resource in planet.cost) {
+                gameState.resources[resource] -= planet.cost[resource];
+            }
+            
+            // Create the planet object
+            const newPlanet = {
+                id: Date.now(), // Unique ID
+                type: planetType,
+                name: `${planet.name} ${gameState.storage.planets.length + 1}`,
+                level: 1,
+                upgrades: [],
+                production: { ...planet.baseProduction },
+                stats: { ...planet.baseStats }
+            };
+            
+            // Add to storage
+            gameState.storage.planets.push(newPlanet);
+            gameState.storage.planetUsed++;
+            gameState.stats.planets++;
+            
+            // Update production rates
+            for (const resource in newPlanet.production) {
+                gameState.productionRates[resource] += newPlanet.production[resource];
+            }
+            
+            // Add to galaxy
+            addToGalaxy(planetType, 'planet', newPlanet.id);
+            
+            // Add event
+            addEvent(`Created a new ${planet.name}.`);
+            
+            // Show notification
+            showNotification(`Created ${planet.name}!`);
+            
+            // Update UI
+            updateUI();
+            renderPlanetStorage();
+            
+            // Save game
+            saveGame();
+        }
+
+        // Create an advanced celestial body
+        function createAdvanced(advancedType) {
+            const advanced = advancedData[advancedType];
+            const cost = advanced.cost;
             
             // Check if we have enough resources
             for (const resource in cost) {
                 if (gameState.resources[resource] < cost[resource]) {
-                    showNotification(`Not enough ${resource} to create ${celestial.name}`, 'warning');
+                    showNotification(`Not enough ${resource} to create ${advanced.name}`, 'warning');
                     return;
                 }
             }
@@ -2411,32 +2298,25 @@
             }
             
             // Add celestial body
-            let type = 'planets';
-            if (celestialId in gameState.celestialBodies.advanced) {
-                type = 'advanced';
-                gameState.stats.advanced++;
-            } else {
-                gameState.stats.planets++;
-            }
-            
-            gameState.celestialBodies[type][celestialId].count++;
+            gameState.celestialBodies.advanced[advancedType].count++;
+            gameState.stats.advanced++;
             
             // Update production rates
-            for (const resource in celestial.production) {
-                gameState.productionRates[resource] += celestial.production[resource];
+            for (const resource in advanced.production) {
+                gameState.productionRates[resource] += advanced.production[resource];
             }
             
             // Add to galaxy
-            addToGalaxy(celestialId, type);
+            addToGalaxy(advancedType, 'advanced');
             
             // Add event
-            addEvent(`Created a new ${celestial.name}.`);
+            addEvent(`Created a new ${advanced.name}.`);
             
             // Show notification
-            showNotification(`Created ${celestial.name}!`);
+            showNotification(`Created ${advanced.name}!`);
             
             // Update celestial display
-            updateCelestialDisplay(celestialId);
+            updateCelestialDisplay(advancedType);
             
             // Update UI
             updateUI();
@@ -2446,7 +2326,7 @@
         }
 
         // Expand storage
-        function expandStorage() {
+        function expandStorage(type) {
             const cost = { energy: 1000, stardust: 500 };
             
             // Check if we have enough resources
@@ -2469,17 +2349,25 @@
             }
             
             // Expand storage
-            gameState.storage.slots += 5;
+            if (type === 'star') {
+                gameState.storage.starSlots += 5;
+            } else {
+                gameState.storage.planetSlots += 5;
+            }
             
             // Add event
-            addEvent("Expanded star storage capacity.");
+            addEvent(`Expanded ${type} storage capacity.`);
             
             // Show notification
-            showNotification("Storage expanded! +5 slots");
+            showNotification(`${type === 'star' ? 'Star' : 'Planet'} storage expanded! +5 slots`);
             
             // Update UI
             updateUI();
-            renderStarStorage();
+            if (type === 'star') {
+                renderStarStorage();
+            } else {
+                renderPlanetStorage();
+            }
             
             // Save game
             saveGame();
@@ -2491,8 +2379,8 @@
             storageContainer.innerHTML = '';
             
             // Update storage info
-            document.getElementById('storage-slots').textContent = 
-                `${gameState.storage.used} / ${gameState.storage.slots}`;
+            document.getElementById('star-storage-slots').textContent = 
+                `${gameState.storage.starUsed} / ${gameState.storage.starSlots}`;
             
             // Render filled slots
             gameState.storage.stars.forEach(star => {
@@ -2517,7 +2405,7 @@
             });
             
             // Render empty slots
-            for (let i = gameState.storage.used; i < gameState.storage.slots; i++) {
+            for (let i = gameState.storage.starUsed; i < gameState.storage.starSlots; i++) {
                 const slot = document.createElement('div');
                 slot.className = 'storage-slot empty';
                 slot.addEventListener('click', () => {
@@ -2530,6 +2418,54 @@
             // Hide star details if no star is selected
             if (!gameState.selectedStar) {
                 document.getElementById('star-details').style.display = 'none';
+            }
+        }
+
+        // Render planet storage
+        function renderPlanetStorage() {
+            const storageContainer = document.getElementById('planet-storage');
+            storageContainer.innerHTML = '';
+            
+            // Update storage info
+            document.getElementById('planet-storage-slots').textContent = 
+                `${gameState.storage.planetUsed} / ${gameState.storage.planetSlots}`;
+            
+            // Render filled slots
+            gameState.storage.planets.forEach(planet => {
+                const planetType = planetData[planet.type];
+                const slot = document.createElement('div');
+                slot.className = 'storage-slot filled';
+                slot.innerHTML = `
+                    <div class="planet-in-slot">
+                        <div class="planet-slot-icon" style="background: ${planetType.display.background}; box-shadow: 0 0 10px ${planetType.display.shadow};">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <div class="planet-slot-name">${planet.name}</div>
+                        <div class="planet-slot-level">Level ${planet.level}</div>
+                    </div>
+                `;
+                
+                slot.addEventListener('click', () => {
+                    selectPlanet(planet.id);
+                });
+                
+                storageContainer.appendChild(slot);
+            });
+            
+            // Render empty slots
+            for (let i = gameState.storage.planetUsed; i < gameState.storage.planetSlots; i++) {
+                const slot = document.createElement('div');
+                slot.className = 'storage-slot empty';
+                slot.addEventListener('click', () => {
+                    // Switch to planets tab to create a new planet
+                    switchTab('planets');
+                });
+                storageContainer.appendChild(slot);
+            }
+            
+            // Hide planet details if no planet is selected
+            if (!gameState.selectedPlanet) {
+                document.getElementById('planet-details').style.display = 'none';
             }
         }
 
@@ -2648,6 +2584,121 @@
             updateCelestialDisplay(star.type);
         }
 
+        // Select a planet for detailed view
+        function selectPlanet(planetId) {
+            const planet = gameState.storage.planets.find(p => p.id === planetId);
+            if (!planet) return;
+            
+            gameState.selectedPlanet = planet;
+            const planetType = planetData[planet.type];
+            
+            const detailsContainer = document.getElementById('planet-details');
+            detailsContainer.style.display = 'block';
+            
+            // Create planet details HTML
+            let upgradesHTML = '';
+            planetType.upgrades.forEach(upgrade => {
+                const hasUpgrade = planet.upgrades.includes(upgrade.id);
+                let canAfford = true;
+                let costHTML = '';
+                
+                for (const resource in upgrade.cost) {
+                    if (gameState.resources[resource] < upgrade.cost[resource]) {
+                        canAfford = false;
+                    }
+                    costHTML += `
+                        <div class="cost-item">
+                            <span>${resource}:</span>
+                            <span>${upgrade.cost[resource]}</span>
+                        </div>
+                    `;
+                }
+                
+                upgradesHTML += `
+                    <div class="planet-upgrade ${hasUpgrade ? 'upgraded' : ''}">
+                        <div class="planet-upgrade-info">
+                            <div class="planet-upgrade-name">${upgrade.name} ${hasUpgrade ? '<i class="fas fa-check" style="color: var(--success);"></i>' : ''}</div>
+                            <div class="planet-upgrade-description">${upgrade.description}</div>
+                        </div>
+                        <div class="planet-upgrade-cost">
+                            ${costHTML}
+                        </div>
+                        <button class="btn ${hasUpgrade ? 'btn-warning' : ''}" 
+                                data-upgrade="${upgrade.id}" 
+                                ${hasUpgrade ? 'disabled' : !canAfford ? 'disabled' : ''}>
+                            ${hasUpgrade ? 'Upgraded' : 'Upgrade'}
+                        </button>
+                    </div>
+                `;
+            });
+            
+            let statsHTML = '';
+            for (const stat in planet.stats) {
+                statsHTML += `
+                    <div class="planet-stat">
+                        <div class="planet-stat-name">${formatStatName(stat)}</div>
+                        <div class="planet-stat-value">${planet.stats[stat]}</div>
+                    </div>
+                `;
+            }
+            
+            let productionHTML = '';
+            for (const resource in planet.production) {
+                productionHTML += `
+                    <div class="planet-stat">
+                        <div class="planet-stat-name">${formatResourceName(resource)}</div>
+                        <div class="planet-stat-value">+${planet.production[resource]}/s</div>
+                    </div>
+                `;
+            }
+            
+            detailsContainer.innerHTML = `
+                <div class="planet-details-header">
+                    <div class="planet-details-icon" style="background: ${planetType.display.background}; box-shadow: 0 0 20px ${planetType.display.shadow};">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <div class="planet-details-info">
+                        <div class="planet-details-name">${planet.name}</div>
+                        <div class="planet-details-type">${planetType.name} • Level ${planet.level}</div>
+                        <button class="btn btn-danger" id="remove-planet-btn">
+                            <i class="fas fa-trash"></i> Remove Planet
+                        </button>
+                    </div>
+                </div>
+                
+                <h3>Statistics</h3>
+                <div class="planet-details-stats">
+                    ${statsHTML}
+                </div>
+                
+                <h3>Production</h3>
+                <div class="planet-details-stats">
+                    ${productionHTML}
+                </div>
+                
+                <div class="planet-upgrades">
+                    <h3>Planet Upgrades</h3>
+                    ${upgradesHTML}
+                </div>
+            `;
+            
+            // Add event listeners for upgrade buttons
+            detailsContainer.querySelectorAll('.btn[data-upgrade]').forEach(button => {
+                button.addEventListener('click', function() {
+                    const upgradeId = this.getAttribute('data-upgrade');
+                    upgradePlanet(planet.id, upgradeId);
+                });
+            });
+            
+            // Add event listener for remove planet button
+            document.getElementById('remove-planet-btn').addEventListener('click', () => {
+                removePlanet(planet.id);
+            });
+            
+            // Update celestial display
+            updateCelestialDisplay(planet.type);
+        }
+
         // Upgrade a star
         function upgradeStar(starId, upgradeId) {
             const star = gameState.storage.stars.find(s => s.id === starId);
@@ -2739,6 +2790,96 @@
             saveGame();
         }
 
+        // Upgrade a planet
+        function upgradePlanet(planetId, upgradeId) {
+            const planet = gameState.storage.planets.find(p => p.id === planetId);
+            if (!planet) return;
+            
+            const planetType = planetData[planet.type];
+            const upgrade = planetType.upgrades.find(u => u.id === upgradeId);
+            if (!upgrade) return;
+            
+            // Check if already upgraded
+            if (planet.upgrades.includes(upgradeId)) {
+                showNotification("This upgrade is already applied", 'warning');
+                return;
+            }
+            
+            // Check if we have enough resources
+            let canAfford = true;
+            for (const resource in upgrade.cost) {
+                if (gameState.resources[resource] < upgrade.cost[resource]) {
+                    canAfford = false;
+                    break;
+                }
+            }
+            
+            if (!canAfford) {
+                showNotification("Not enough resources for this upgrade", 'warning');
+                return;
+            }
+            
+            // Deduct costs
+            for (const resource in upgrade.cost) {
+                gameState.resources[resource] -= upgrade.cost[resource];
+            }
+            
+            // Apply upgrade
+            planet.upgrades.push(upgradeId);
+            
+            // Apply effects
+            if (upgrade.effect.stardustMultiplier) {
+                if (planet.production.stardust) {
+                    gameState.productionRates.stardust -= planet.production.stardust;
+                    planet.production.stardust *= upgrade.effect.stardustMultiplier;
+                    gameState.productionRates.stardust += planet.production.stardust;
+                }
+            }
+            
+            if (upgrade.effect.knowledgeMultiplier) {
+                if (planet.production.knowledge) {
+                    gameState.productionRates.knowledge -= planet.production.knowledge;
+                    planet.production.knowledge *= upgrade.effect.knowledgeMultiplier;
+                    gameState.productionRates.knowledge += planet.production.knowledge;
+                }
+            }
+            
+            if (upgrade.effect.heliumMultiplier) {
+                if (planet.production.helium) {
+                    gameState.productionRates.helium -= planet.production.helium;
+                    planet.production.helium *= upgrade.effect.heliumMultiplier;
+                    gameState.productionRates.helium += planet.production.helium;
+                }
+            }
+            
+            if (upgrade.effect.addProduction) {
+                for (const resource in upgrade.effect.addProduction) {
+                    if (planet.production[resource]) {
+                        planet.production[resource] += upgrade.effect.addProduction[resource];
+                    } else {
+                        planet.production[resource] = upgrade.effect.addProduction[resource];
+                    }
+                    gameState.productionRates[resource] += upgrade.effect.addProduction[resource];
+                }
+            }
+            
+            // Increase planet level
+            planet.level++;
+            
+            // Add event
+            addEvent(`Upgraded ${planet.name} with ${upgrade.name}.`);
+            
+            // Show notification
+            showNotification(`Upgraded ${planet.name}!`, 'quantum');
+            
+            // Update UI and reselect the planet to refresh details
+            updateUI();
+            selectPlanet(planetId);
+            
+            // Save game
+            saveGame();
+        }
+
         // Remove a star
         function removeStar(starId) {
             const starIndex = gameState.storage.stars.findIndex(s => s.id === starId);
@@ -2753,8 +2894,11 @@
             
             // Remove from storage
             gameState.storage.stars.splice(starIndex, 1);
-            gameState.storage.used--;
+            gameState.storage.starUsed--;
             gameState.stats.stars--;
+            
+            // Remove from galaxy
+            removeFromGalaxy(starId, 'star');
             
             // Hide details
             document.getElementById('star-details').style.display = 'none';
@@ -2774,137 +2918,83 @@
             saveGame();
         }
 
-        // Research an upgrade
-        function researchUpgrade(upgradeId) {
-            const upgrade = upgradeData[upgradeId];
-            const cost = upgrade.cost;
+        // Remove a planet
+        function removePlanet(planetId) {
+            const planetIndex = gameState.storage.planets.findIndex(p => p.id === planetId);
+            if (planetIndex === -1) return;
             
-            // Check if already researched
-            if (gameState.upgrades[upgradeId]) {
-                showNotification(`${upgrade.name} already researched`, 'warning');
-                return;
+            const planet = gameState.storage.planets[planetIndex];
+            
+            // Remove production
+            for (const resource in planet.production) {
+                gameState.productionRates[resource] -= planet.production[resource];
             }
             
-            // Check if we have enough resources
-            for (const resource in cost) {
-                if (gameState.resources[resource] < cost[resource]) {
-                    showNotification(`Not enough ${resource} to research ${upgrade.name}`, 'warning');
-                    return;
-                }
-            }
+            // Remove from storage
+            gameState.storage.planets.splice(planetIndex, 1);
+            gameState.storage.planetUsed--;
+            gameState.stats.planets--;
             
-            // Deduct cost
-            for (const resource in cost) {
-                gameState.resources[resource] -= cost[resource];
-            }
+            // Remove from galaxy
+            removeFromGalaxy(planetId, 'planet');
             
-            // Research upgrade
-            gameState.upgrades[upgradeId] = true;
-            gameState.stats.upgrades++;
-            
-            // Apply upgrade effects
-            applyUpgradeEffect(upgradeId);
+            // Hide details
+            document.getElementById('planet-details').style.display = 'none';
+            gameState.selectedPlanet = null;
             
             // Add event
-            addEvent(`Researched ${upgrade.name}.`);
+            addEvent(`Removed ${planet.name} from storage.`);
             
             // Show notification
-            showNotification(`Researched ${upgrade.name}!`, 'quantum');
+            showNotification(`Removed ${planet.name}`, 'warning');
             
             // Update UI
             updateUI();
-            
-            // Save game
-            saveGame();
-        }
-
-        // Apply upgrade effects
-        function applyUpgradeEffect(upgradeId) {
-            switch(upgradeId) {
-                case 'fusion':
-                    // Increase energy production from stars
-                    gameState.storage.stars.forEach(star => {
-                        if (star.production.energy) {
-                            gameState.productionRates.energy -= star.production.energy;
-                            star.production.energy *= 1.25;
-                            gameState.productionRates.energy += star.production.energy;
-                        }
-                    });
-                    break;
-                case 'harvesting':
-                    // Increase energy production multiplier
-                    gameState.productionRates.energy *= 1.5;
-                    break;
-                case 'gravity':
-                    // This would reduce planet creation costs in a full implementation
-                    break;
-                case 'recycling':
-                    // This would give resources when stars die in a full implementation
-                    break;
-                case 'quantum':
-                    // Global production boost
-                    for (const resource in gameState.productionRates) {
-                        if (resource !== 'quantumFoam') {
-                            gameState.productionRates[resource] *= 1.15;
-                        }
-                    }
-                    break;
-                case 'multiverse':
-                    // Unlocks wormholes (already available in UI)
-                    break;
-            }
-        }
-
-        // Evolve a celestial body
-        function evolveCelestial(evolutionId) {
-            const evolution = evolutionData[evolutionId];
-            const cost = evolution.cost;
-            
-            // Check if we have enough resources
-            for (const resource in cost) {
-                if (gameState.resources[resource] < cost[resource]) {
-                    showNotification(`Not enough ${resource} to evolve`, 'warning');
-                    return;
-                }
-            }
-            
-            // Deduct costs
-            for (const resource in cost) {
-                gameState.resources[resource] -= cost[resource];
-            }
-            
-            // In a full implementation, we would actually evolve the celestial body
-            // For now, we'll just show a notification
-            showNotification(`Evolution initiated!`, 'quantum');
-            addEvent(`Initiated evolution process.`);
-            
-            gameState.stats.evolutions++;
-            
-            // Update UI
-            updateUI();
+            renderPlanetStorage();
             
             // Save game
             saveGame();
         }
 
         // Add celestial body to galaxy
-        function addToGalaxy(celestialId, type) {
-            const celestial = celestialData[celestialId];
-            const galaxyArray = gameState.galaxy[type];
+        function addToGalaxy(celestialId, type, id = null) {
+            const galaxyArray = gameState.galaxy[type + 's'];
             
             // Create a new celestial object for the galaxy
             const newCelestial = {
-                id: celestialId,
+                id: id || celestialId,
+                celestialId: celestialId,
+                type: type,
                 x: Math.random() * 80 + 10, // Random position (10% to 90%)
                 y: Math.random() * 80 + 10,
-                size: getCelestialSize(celestialId)
+                size: getCelestialSize(celestialId, type)
             };
             
             galaxyArray.push(newCelestial);
+            
+            // If we're on the galaxy tab, re-render the map
+            if (document.getElementById('galaxy').classList.contains('active')) {
+                renderGalaxyMap();
+            }
+        }
+
+        // Remove celestial body from galaxy
+        function removeFromGalaxy(id, type) {
+            const galaxyArray = gameState.galaxy[type + 's'];
+            const index = galaxyArray.findIndex(c => c.id === id);
+            
+            if (index !== -1) {
+                galaxyArray.splice(index, 1);
+                
+                // If we're on the galaxy tab, re-render the map
+                if (document.getElementById('galaxy').classList.contains('active')) {
+                    renderGalaxyMap();
+                }
+            }
         }
 
         // Get size for celestial body in galaxy map
-        function getCelestialSize(celestialId) {
+        function getCelestialSize(celestialId, type) {
             const sizes = {
                 redDwarf: 10,
                 yellowStar: 15,
@@ -2915,6 +3005,7 @@
                 gasGiant: 12,
                 ringedPlanet: 8,
                 blackHole: 15,
+                whiteHole: 15,
                 nebula: 25,
                 quasar: 18,
                 wormhole: 10
@@ -2928,51 +3019,149 @@
             const galaxyMap = document.getElementById('galaxy-map');
             galaxyMap.innerHTML = '';
             
+            // Clear selected celestial info
+            document.getElementById('selected-celestial-info').innerHTML = 'No celestial body selected';
+            document.getElementById('evolution-options').innerHTML = '';
+            
             // Render stars from storage
             gameState.storage.stars.forEach(star => {
                 const starType = starData[star.type];
                 const starElement = document.createElement('div');
                 starElement.className = 'star';
-                starElement.style.left = `${Math.random() * 80 + 10}%`;
-                starElement.style.top = `${Math.random() * 80 + 10}%`;
-                starElement.style.width = `${getCelestialSize(star.type)}px`;
-                starElement.style.height = `${getCelestialSize(star.type)}px`;
+                starElement.style.left = `${star.x}%`;
+                starElement.style.top = `${star.y}%`;
+                starElement.style.width = `${star.size}px`;
+                starElement.style.height = `${star.size}px`;
                 starElement.style.background = starType.display.background;
                 starElement.style.boxShadow = `0 0 10px ${starType.display.shadow}`;
+                starElement.setAttribute('data-id', star.id);
+                starElement.setAttribute('data-type', 'star');
+                
+                starElement.addEventListener('click', function() {
+                    selectCelestialInGalaxy(star.id, 'star', star.type);
+                });
                 
                 galaxyMap.appendChild(starElement);
             });
             
-            // Render other celestial bodies
-            for (const type in gameState.celestialBodies) {
-                for (const celestialId in gameState.celestialBodies[type]) {
-                    const count = gameState.celestialBodies[type][celestialId].count;
-                    const celestial = celestialData[celestialId];
+            // Render planets from storage
+            gameState.storage.planets.forEach(planet => {
+                const planetType = planetData[planet.type];
+                const planetElement = document.createElement('div');
+                planetElement.className = 'planet';
+                planetElement.style.left = `${planet.x}%`;
+                planetElement.style.top = `${planet.y}%`;
+                planetElement.style.width = `${planet.size}px`;
+                planetElement.style.height = `${planet.size}px`;
+                planetElement.style.background = planetType.display.background;
+                planetElement.style.boxShadow = `0 0 10px ${planetType.display.shadow}`;
+                planetElement.setAttribute('data-id', planet.id);
+                planetElement.setAttribute('data-type', 'planet');
+                
+                planetElement.addEventListener('click', function() {
+                    selectCelestialInGalaxy(planet.id, 'planet', planet.type);
+                });
+                
+                galaxyMap.appendChild(planetElement);
+            });
+            
+            // Render advanced celestial bodies
+            for (const type in gameState.celestialBodies.advanced) {
+                const count = gameState.celestialBodies.advanced[type].count;
+                const advanced = advancedData[type];
+                
+                for (let i = 0; i < count; i++) {
+                    const element = document.createElement('div');
                     
-                    for (let i = 0; i < count; i++) {
-                        const element = document.createElement('div');
-                        element.className = type === 'advanced' && celestialId === 'blackHole' ? 'black-hole black-hole-pulse' : type === 'planets' ? 'planet' : 'star';
-                        element.style.left = `${Math.random() * 80 + 10}%`;
-                        element.style.top = `${Math.random() * 80 + 10}%`;
-                        element.style.width = `${getCelestialSize(celestialId)}px`;
-                        element.style.height = `${getCelestialSize(celestialId)}px`;
-                        
-                        if (type === 'advanced' && celestialId === 'blackHole') {
-                            element.style.background = celestial.display.background;
-                        } else {
-                            element.style.background = celestial.display.background;
-                            element.style.boxShadow = `0 0 10px ${celestial.display.shadow}`;
-                        }
-                        
-                        galaxyMap.appendChild(element);
+                    if (type === 'blackHole') {
+                        element.className = 'black-hole black-hole-pulse';
+                    } else if (type === 'whiteHole') {
+                        element.className = 'white-hole white-hole-pulse';
+                    } else {
+                        element.className = 'star';
                     }
+                    
+                    element.style.left = `${Math.random() * 80 + 10}%`;
+                    element.style.top = `${Math.random() * 80 + 10}%`;
+                    element.style.width = `${getCelestialSize(type, 'advanced')}px`;
+                    element.style.height = `${getCelestialSize(type, 'advanced')}px`;
+                    
+                    if (type === 'blackHole' || type === 'whiteHole') {
+                        element.style.background = advanced.display.background;
+                    } else {
+                        element.style.background = advanced.display.background;
+                        element.style.boxShadow = `0 0 10px ${advanced.display.shadow}`;
+                    }
+                    
+                    element.setAttribute('data-id', type + '_' + i);
+                    element.setAttribute('data-type', 'advanced');
+                    
+                    element.addEventListener('click', function() {
+                        selectCelestialInGalaxy(type + '_' + i, 'advanced', type);
+                    });
+                    
+                    galaxyMap.appendChild(element);
                 }
+            }
+        }
+
+        // Select celestial body in galaxy
+        function selectCelestialInGalaxy(id, type, celestialType) {
+            let celestial;
+            let name;
+            let stats;
+            let display;
+            
+            if (type === 'star') {
+                celestial = gameState.storage.stars.find(s => s.id === id);
+                if (celestial) {
+                    const starType = starData[celestial.type];
+                    name = celestial.name;
+                    stats = Object.entries(celestial.stats).map(([key, value]) => 
+                        `${formatStatName(key)}: ${value}`
+                    ).join(' | ');
+                    display = starType.display;
+                }
+            } else if (type === 'planet') {
+                celestial = gameState.storage.planets.find(p => p.id === id);
+                if (celestial) {
+                    const planetType = planetData[celestial.type];
+                    name = celestial.name;
+                    stats = Object.entries(celestial.stats).map(([key, value]) => 
+                        `${formatStatName(key)}: ${value}`
+                    ).join(' | ');
+                    display = planetType.display;
+                }
+            } else if (type === 'advanced') {
+                const advancedType = celestialType;
+                celestial = advancedData[advancedType];
+                if (celestial) {
+                    name = celestial.name;
+                    stats = celestial.stats;
+                    display = celestial.display;
+                }
+            }
+            
+            if (celestial) {
+                const infoElement = document.getElementById('selected-celestial-info');
+                infoElement.innerHTML = `
+                    <div class="celestial-header">
+                        <div class="celestial-icon" style="background: ${display.background}; box-shadow: 0 0 10px ${display.shadow};">
+                            <i class="fas fa-${type === 'star' ? 'star' : type === 'planet' ? 'globe' : 'rocket'}"></i>
+                        </div>
+                        <div class="celestial-name">${name}</div>
+                    </div>
+                    <div class="celestial-description">${stats}</div>
+                `;
+                
+                // Update celestial display
+                updateCelestialDisplay(celestialType);
             }
         }
 
         // Update celestial display
         function updateCelestialDisplay(celestialId) {
-            const celestial = starData[celestialId] || celestialData[celestialId];
+            let celestial = starData[celestialId] || planetData[celestialId] || advancedData[celestialId];
             const display = document.getElementById('celestial-display');
             const title = document.getElementById('display-title');
             const stats = document.getElementById('display-stats');
@@ -2985,7 +3174,7 @@
                 if (celestial.stats) {
                     stats.textContent = celestial.stats;
                 } else if (celestial.baseStats) {
-                    // Create stats text for stars
+                    // Create stats text for stars and planets
                     let statsText = '';
                     for (const stat in celestial.baseStats) {
                         statsText += `${formatStatName(stat)}: ${celestial.baseStats[stat]} | `;
@@ -2998,6 +3187,12 @@
                     display.classList.add('black-hole-pulse');
                 } else {
                     display.classList.remove('black-hole-pulse');
+                }
+                
+                if (celestialId === 'whiteHole') {
+                    display.classList.add('white-hole-pulse');
+                } else {
+                    display.classList.remove('white-hole-pulse');
                 }
                 
                 if (celestialId === 'neutronStar' || celestialId === 'quasar') {
@@ -3039,7 +3234,7 @@
                 
                 if (celestial in starData) {
                     // Star creation - check storage space
-                    if (gameState.storage.used >= gameState.storage.slots) {
+                    if (gameState.storage.starUsed >= gameState.storage.starSlots) {
                         canAfford = false;
                     } else {
                         // Check resources for stars
@@ -3051,11 +3246,25 @@
                             }
                         }
                     }
+                } else if (celestial in planetData) {
+                    // Planet creation - check storage space
+                    if (gameState.storage.planetUsed >= gameState.storage.planetSlots) {
+                        canAfford = false;
+                    } else {
+                        // Check resources for planets
+                        const planet = planetData[celestial];
+                        for (const resource in planet.cost) {
+                            if (gameState.resources[resource] < planet.cost[resource]) {
+                                canAfford = false;
+                                break;
+                            }
+                        }
+                    }
                 } else {
-                    // Planet/advanced creation - check resources
-                    const celestialObj = celestialData[celestial];
-                    for (const resource in celestialObj.cost) {
-                        if (gameState.resources[resource] < celestialObj.cost[resource]) {
+                    // Advanced creation - check resources
+                    const advanced = advancedData[celestial];
+                    for (const resource in advanced.cost) {
+                        if (gameState.resources[resource] < advanced.cost[resource]) {
                             canAfford = false;
                             break;
                         }
@@ -3065,32 +3274,10 @@
                 button.disabled = !canAfford;
             });
             
-            // Update upgrade buttons
-            document.querySelectorAll('.upgrade-btn').forEach(button => {
-                const upgradeId = button.getAttribute('data-upgrade');
-                const upgrade = upgradeData[upgradeId];
-                
-                if (gameState.upgrades[upgradeId]) {
-                    button.textContent = "Researched";
-                    button.disabled = true;
-                } else {
-                    let canAfford = true;
-                    for (const resource in upgrade.cost) {
-                        if (gameState.resources[resource] < upgrade.cost[resource]) {
-                            canAfford = false;
-                            break;
-                        }
-                    }
-                    button.disabled = !canAfford;
-                }
-            });
-            
             // Update stats
             document.getElementById('stat-stars').textContent = gameState.stats.stars;
             document.getElementById('stat-planets').textContent = gameState.stats.planets;
             document.getElementById('stat-advanced').textContent = gameState.stats.advanced;
-            document.getElementById('stat-evolutions').textContent = gameState.stats.evolutions;
-            document.getElementById('stat-upgrades').textContent = gameState.stats.upgrades;
             
             // Update achievements
             updateAchievementsUI();
@@ -3124,57 +3311,10 @@
                 unlockAchievement(3, "Planet Creator");
             }
             
-            // Solar System - Create a star with 3 planets (simplified)
-            if (!gameState.achievements.solarSystem && gameState.stats.stars >= 1 && gameState.stats.planets >= 3) {
-                gameState.achievements.solarSystem = true;
-                unlockAchievement(4, "Solar System");
-            }
-            
-            // Cosmic Architect - Create one of each celestial body
-            if (!gameState.achievements.cosmicArchitect) {
-                let allCreated = true;
-                
-                // Check stars
-                for (const starType in starData) {
-                    if (!gameState.storage.stars.some(star => star.type === starType)) {
-                        allCreated = false;
-                        break;
-                    }
-                }
-                
-                // Check planets and advanced
-                for (const type in gameState.celestialBodies) {
-                    for (const celestial in gameState.celestialBodies[type]) {
-                        if (gameState.celestialBodies[type][celestial].count === 0) {
-                            allCreated = false;
-                            break;
-                        }
-                    }
-                    if (!allCreated) break;
-                }
-                
-                if (allCreated) {
-                    gameState.achievements.cosmicArchitect = true;
-                    unlockAchievement(5, "Cosmic Architect");
-                }
-            }
-            
-            // Dark Master - Accumulate 1,000 dark matter
-            if (!gameState.achievements.darkMaster && gameState.resources.darkMatter >= 1000) {
-                gameState.achievements.darkMaster = true;
-                unlockAchievement(6, "Dark Master");
-            }
-            
             // Quantum Pioneer - Create your first black hole
             if (!gameState.achievements.quantumPioneer && gameState.celestialBodies.advanced.blackHole.count > 0) {
                 gameState.achievements.quantumPioneer = true;
                 unlockAchievement(7, "Quantum Pioneer");
-            }
-            
-            // Multiversal Traveler - Create a wormhole
-            if (!gameState.achievements.multiversalTraveler && gameState.celestialBodies.advanced.wormhole.count > 0) {
-                gameState.achievements.multiversalTraveler = true;
-                unlockAchievement(8, "Multiversal Traveler");
             }
         }
 
