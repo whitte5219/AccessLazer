@@ -517,6 +517,7 @@
             position: absolute;
             border-radius: 50%;
             transition: all 0.5s ease;
+            cursor: pointer;
         }
         
         .black-hole {
@@ -527,6 +528,18 @@
             transition: all 0.5s ease;
             width: 30px;
             height: 30px;
+            cursor: pointer;
+        }
+        
+        .white-hole {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, #ffffff 0%, #cccccc 70%);
+            box-shadow: 0 0 30px #ffffff;
+            transition: all 0.5s ease;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
         }
         
         .evolution-panel {
@@ -887,6 +900,15 @@
         
         .black-hole-pulse {
             animation: black-hole-pulse 3s infinite;
+        }
+        
+        @keyframes white-hole-pulse {
+            0%, 100% { box-shadow: 0 0 30px #ffffff; }
+            50% { box-shadow: 0 0 50px #ffffff; }
+        }
+        
+        .white-hole-pulse {
+            animation: white-hole-pulse 3s infinite;
         }
         
         @keyframes glow {
@@ -1314,6 +1336,35 @@
                             
                             <div class="celestial-item">
                                 <div class="celestial-header">
+                                    <div class="celestial-icon white-hole-pulse" style="background: #ffffff; color: black;">
+                                        <i class="fas fa-circle"></i>
+                                    </div>
+                                    <div class="celestial-name">White Hole</div>
+                                </div>
+                                <div class="celestial-description">
+                                    Theoretical portal and an unknown source sending out limitless energy and mass. Generates hydrogen and energy.
+                                </div>
+                                <div class="celestial-cost">
+                                    <div class="cost-item">
+                                        <span>Energy:</span>
+                                        <span>75,000</span>
+                                    </div>
+                                    <div class="cost-item">
+                                        <span>Dark Matter:</span>
+                                        <span>4,000</span>
+                                    </div>
+                                    <div class="cost-item">
+                                        <span>Knowledge:</span>
+                                        <span>15,000</span>
+                                    </div>
+                                </div>
+                                <button class="btn create-btn" data-celestial="whiteHole">
+                                    <i class="fas fa-plus"></i> Create
+                                </button>
+                            </div>
+                            
+                            <div class="celestial-item">
+                                <div class="celestial-header">
                                     <div class="celestial-icon" style="background: var(--nebula-pink); color: white;">
                                         <i class="fas fa-cloud"></i>
                                     </div>
@@ -1325,7 +1376,7 @@
                                 <div class="celestial-cost">
                                     <div class="cost-item">
                                         <span>Hydrogen:</span>
-                                        <span>10,000</span>
+                                        <span>20,000</span>
                                     </div>
                                     <div class="cost-item">
                                         <span>Stardust:</span>
@@ -1813,6 +1864,7 @@
                 },
                 advanced: {
                     blackHole: { count: 0, production: { quantumFoam: 1 } },
+                    whiteHole: { count: 0, production: { hydrogen: 20, energy: 100 } },
                     nebula: { count: 0, production: { hydrogen: 10, stardust: 5 } },
                     quasar: { count: 0, production: { energy: 200, knowledge: 5 } },
                     wormhole: { count: 0, production: { quantumFoam: 5, knowledge: 10 } }
@@ -2071,9 +2123,19 @@
                 },
                 stats: "Event Horizon: 30km | Singularity: Infinite Density"
             },
+            whiteHole: {
+                name: "White Hole",
+                cost: { energy: 75000, darkMatter: 4000, knowledge: 15000 },
+                production: { hydrogen: 20, energy: 100 },
+                display: {
+                    background: "radial-gradient(circle at 30% 30%, #ffffff, #cccccc, #999999)",
+                    shadow: "#ffffff"
+                },
+                stats: "Theoretical Portal | Output: Limitless Energy & Mass"
+            },
             nebula: {
                 name: "Nebula",
-                cost: { hydrogen: 10000, stardust: 5000, energy: 2000 },
+                cost: { hydrogen: 20000, stardust: 5000, energy: 2000 },
                 production: { hydrogen: 10, stardust: 5 },
                 display: {
                     background: "radial-gradient(circle at 30% 30%, #9c27b0, #e91e63, #ff9800)",
@@ -2915,6 +2977,7 @@
                 gasGiant: 12,
                 ringedPlanet: 8,
                 blackHole: 15,
+                whiteHole: 15,
                 nebula: 25,
                 quasar: 18,
                 wormhole: 10
@@ -2939,6 +3002,14 @@
                 starElement.style.height = `${getCelestialSize(star.type)}px`;
                 starElement.style.background = starType.display.background;
                 starElement.style.boxShadow = `0 0 10px ${starType.display.shadow}`;
+                starElement.setAttribute('data-id', star.id);
+                starElement.setAttribute('data-type', 'star');
+                
+                // Add click event to select the star
+                starElement.addEventListener('click', function() {
+                    selectStar(star.id);
+                    updateSelectedCelestialInfo(star.name, starType);
+                });
                 
                 galaxyMap.appendChild(starElement);
             });
@@ -2951,23 +3022,70 @@
                     
                     for (let i = 0; i < count; i++) {
                         const element = document.createElement('div');
-                        element.className = type === 'advanced' && celestialId === 'blackHole' ? 'black-hole black-hole-pulse' : type === 'planets' ? 'planet' : 'star';
+                        let className = '';
+                        
+                        if (type === 'advanced') {
+                            if (celestialId === 'blackHole') {
+                                className = 'black-hole black-hole-pulse';
+                            } else if (celestialId === 'whiteHole') {
+                                className = 'white-hole white-hole-pulse';
+                            } else {
+                                className = 'star';
+                            }
+                        } else {
+                            className = 'planet';
+                        }
+                        
+                        element.className = className;
                         element.style.left = `${Math.random() * 80 + 10}%`;
                         element.style.top = `${Math.random() * 80 + 10}%`;
                         element.style.width = `${getCelestialSize(celestialId)}px`;
                         element.style.height = `${getCelestialSize(celestialId)}px`;
+                        element.setAttribute('data-id', celestialId);
+                        element.setAttribute('data-type', type);
                         
-                        if (type === 'advanced' && celestialId === 'blackHole') {
+                        if (type === 'advanced' && (celestialId === 'blackHole' || celestialId === 'whiteHole')) {
+                            // Special handling for black and white holes
                             element.style.background = celestial.display.background;
                         } else {
                             element.style.background = celestial.display.background;
                             element.style.boxShadow = `0 0 10px ${celestial.display.shadow}`;
                         }
                         
+                        // Add click event to select the celestial body
+                        element.addEventListener('click', function() {
+                            updateSelectedCelestialInfo(celestial.name, celestial);
+                        });
+                        
                         galaxyMap.appendChild(element);
                     }
                 }
             }
+        }
+
+        // Update selected celestial info in galaxy tab
+        function updateSelectedCelestialInfo(name, celestial) {
+            const selectedInfo = document.getElementById('selected-celestial-info');
+            let statsText = '';
+            
+            if (celestial.baseStats) {
+                // Star data
+                for (const stat in celestial.baseStats) {
+                    statsText += `${formatStatName(stat)}: ${celestial.baseStats[stat]} | `;
+                }
+                statsText = statsText.slice(0, -3); // Remove last " | "
+            } else if (celestial.stats) {
+                // Other celestial data
+                statsText = celestial.stats;
+            }
+            
+            selectedInfo.innerHTML = `
+                <div><strong>${name}</strong></div>
+                <div>${statsText}</div>
+            `;
+            
+            // Update celestial display
+            updateCelestialDisplay(celestial.name.toLowerCase().replace(' ', ''));
         }
 
         // Update celestial display
@@ -2998,6 +3116,12 @@
                     display.classList.add('black-hole-pulse');
                 } else {
                     display.classList.remove('black-hole-pulse');
+                }
+                
+                if (celestialId === 'whiteHole') {
+                    display.classList.add('white-hole-pulse');
+                } else {
+                    display.classList.remove('white-hole-pulse');
                 }
                 
                 if (celestialId === 'neutronStar' || celestialId === 'quasar') {
